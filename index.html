@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+<style>
+  /* --- General Styling --- */
+  body {
+    margin: 0;
+    font-family: 'Times New Roman', serif;
+    background-color: #fdf8f5; /* Light cream background */
+    color: #a37c4d; /* Gold/Bronze text color */
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-style: italic;
+    font-weight: normal;
+  }
+
+  /* --- Envelope Animation Section --- */
+  #envelope-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdf8f5;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    transition: opacity 1s ease-in-out; /* Fade out transition */
+  }
+
+  .envelope {
+    width: 300px;
+    height: 200px;
+    background: #e8d0a9; /* Base envelope color */
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  /* The flap of the envelope */
+  .flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 100px solid #dcbfa6;
+    transform-origin: top;
+    transition: transform 0.6s ease-in-out;
+    z-index: 3;
+  }
+
+  /* Class added via JS to open the flap */
+  .envelope.open .flap {
+    transform: rotateX(180deg);
+  }
+
+  /* The wax seal */
+  .seal {
+    position: absolute;
+    top: 80px;
+    left: 125px;
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle, #e2bb7a, #c49952);
+    border-radius: 50%;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: cursive;
+    font-size: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: opacity 0.3s;
+  }
+
+  .envelope.open .seal {
+    opacity: 0; /* Hide seal when opening */
+  }
+
+  /* --- Main Content Section --- */
+  #main-content {
+    display: none; /* Hidden until envelope opens */
+    padding: 0;
+    text-align: center;
+  }
+
+  .hero-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Replace this with a real image URL */
+    background-image: linear-gradient(rgba(253, 248, 245, 0.5), rgba(253, 248, 245, 0.9)), url('https://via.placeholder.com/800x1200?text=Couple+Image'); 
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+  }
+
+  .hero-section h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .hero-section h2 {
+    font-size: 40px;
+    margin: 0;
+    font-family: 'Brush Script MT', cursive; /* Script font */
+  }
+
+  .scroll-indicator {
+    margin-top: 50px;
+    font-size: 14px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+  }
+
+  /* --- Scratch Card Section --- */
+  .date-section {
+    padding: 50px 20px;
+    background-color: #fff;
+  }
+
+  .scratch-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .scratch-card {
+    position: relative;
+    width: 80px;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+
+  .scratch-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fdf8f5;
+    border: 1px solid #e8d0a9;
+    font-size: 18px;
+    font-weight: bold;
+    color: #5a4a42;
+  }
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    cursor: crosshair;
+  }
+</style>
+</head>
+<body>
+
+<!-- Envelope Animation Overlay -->
+<div id="envelope-container">
+  <div class="envelope" id="envelope">
+    <div class="flap"></div>
+    <div class="seal">D&A</div>
+  </div>
+</div>
+
+<!-- Main Invitation Content -->
+<div id="main-content">
+
+  <div class="hero-section">
+    <h1>Welcome to the Wedding Ceremony<br>of</h1>
+    <h2>Naveen G & Chitrashree M</h2>
+    <div class="scroll-indicator">
+      Scroll down<br>↓
+    </div>
+  </div>
+
+  <div class="date-section">
+    <h2>03-12-2026</h2>
+    <p>✦ Scratch to reveal the date ✦</p>
+
+    <div class="scratch-container">
+      <div class="scratch-card">
+        <div class="scratch-content"><span>10</span><span style="font-size:12px; font-weight:normal;">03</span></div>
+        <canvas id="canvas-day" width="80" height="100"></canvas>
+      </div>
+      <div class="scratch-card">
+        <div class="scratch-content"><span>January</span><span style="font-size:12px; font-weight:normal;">12</span></div>
+        <canvas id="canvas-month" width="80" height="100"></canvas>
+      </div>
+      <div class="scratch-card">
+        <div class="scratch-content"><span>2027</span><span style="font-size:12px; font-weight:normal;">2026</span></div>
+        <canvas id="canvas-year" width="80" height="100"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 50vh; padding: 40px; background-color: #fdf8f5;">
+      <!-- Add remaining invitation details here (parents names, timeline, etc.) -->
+      <h2>You are invited...</h2>
+  </div>
+
+</div>
+
+<script>
+  // --- 1. Logic to Open the Envelope ---
+  const envelope = document.getElementById('envelope');
+  const container = document.getElementById('envelope-container');
+  const mainContent = document.getElementById('main-content');
+
+  envelope.addEventListener('click', () => {
+    // Add class to trigger CSS transform on the flap
+    envelope.classList.add('open');
+
+    // Wait for flap animation, then fade out the container
+    setTimeout(() => {
+      container.style.opacity = '0';
+
+      // Wait for fade out, then hide container and show main content
+      setTimeout(() => {
+        container.style.display = 'none';
+        mainContent.style.display = 'block';
+      }, 1000); // 1 second fade duration
+    }, 800); // Wait 0.8s for flap to open
+  });
+
+  // --- 2. Logic for the Scratch-Off Cards ---
+  function setupScratchCard(canvasId) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+
+    // Fill the canvas with a solid "gold" color to act as the cover
+    ctx.fillStyle = '#d4af37'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Optional: Add some text over the scratch layer
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Scratch', canvas.width/2, canvas.height/2 + 5);
+
+    let isDrawing = false;
+
+    // Function to "erase" the colored layer
+    function scratch(e) {
+      if (!isDrawing) return;
+
+      // Prevent scrolling while scratching on mobile
+      e.preventDefault(); 
+
+      const rect = canvas.getBoundingClientRect();
+      // Handle both mouse and touch events
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      // This is the magic line that makes drawing act like an eraser
+      ctx.globalCompositeOperation = 'destination-out';
+
+      ctx.beginPath();
+      ctx.arc(x, y, 15, 0, Math.PI * 2); // 15 is the brush size
+      ctx.fill();
+    }
+
+    // Mouse Event Listeners
+    canvas.addEventListener('mousedown', () => isDrawing = true);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', scratch);
+
+    // Touch Event Listeners (for mobile phones)
+    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
+    canvas.addEventListener('touchend', () => isDrawing = false);
+    canvas.addEventListener('touchmove', scratch, {passive: false});
+  }
+
+  // Initialize the three scratch cards
+  setupScratchCard('canvas-day');
+  setupScratchCard('canvas-month');
+  setupScratchCard('canvas-year');
+</script>
+
+</body>
+</html>
