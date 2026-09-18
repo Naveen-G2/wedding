@@ -1,306 +1,982 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
-<style>
-  /* --- General Styling --- */
-  body {
-    margin: 0;
-    font-family: 'Times New Roman', serif;
-    background-color: #fdf8f5; /* Light cream background */
-    color: #a37c4d; /* Gold/Bronze text color */
-    overflow-x: hidden;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Wedding Invitation | Naveen G &amp; CHITRASHREE M</title>
+  
+  <!-- Premium Google Fonts for Royal Indian Wedding Aesthetic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Great+Vibes&family=Marcellus&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons and Confetti Engine -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  h1, h2, h3 {
-    font-style: italic;
-    font-weight: normal;
-  }
+  <style>
+    :root {
+      --gold-primary: #f5d061;
+      --gold-light: #fff0be;
+      --gold-deep: #b8860b;
+      --gold-gradient: linear-gradient(135deg, #fff3c4 0%, #e2b744 50%, #9e7512 100%);
+      --maroon-deep: #1e030c;
+      --maroon-rich: #480c20;
+      --maroon-accent: #781738;
+      --midnight: #070913;
+      --cream: #fffaf2;
+    }
 
-  /* --- Envelope Animation Section --- */
-  #envelope-container {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fdf8f5;
-    position: fixed;
-    width: 100%;
-    z-index: 10;
-    transition: opacity 1s ease-in-out; /* Fade out transition */
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  .envelope {
-    width: 300px;
-    height: 200px;
-    background: #e8d0a9; /* Base envelope color */
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  }
+    body {
+      background-color: var(--midnight);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      user-select: none;
+    }
 
-  /* The flap of the envelope */
-  .flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 150px solid transparent;
-    border-right: 150px solid transparent;
-    border-top: 100px solid #dcbfa6;
-    transform-origin: top;
-    transition: transform 0.6s ease-in-out;
-    z-index: 3;
-  }
+    /* Background Ambient Sky & Twinkling Stars */
+    .sky-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(ellipse at top, #240b21 0%, #0d020a 55%, #05060b 100%);
+      z-index: -2;
+    }
 
-  /* Class added via JS to open the flap */
-  .envelope.open .flap {
-    transform: rotateX(180deg);
-  }
+    .starlight-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        radial-gradient(1.5px 1.5px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 140px 90px, #fce08b, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 220px 210px, #ffffff, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 310px 40px, #f5d061, rgba(0,0,0,0)),
+        radial-gradient(1.5px 1.5px at 450px 180px, #ffffff, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 400px 400px;
+      opacity: 0.6;
+      z-index: -1;
+      animation: twinkle 4s ease-in-out infinite alternate;
+    }
 
-  /* The wax seal */
-  .seal {
-    position: absolute;
-    top: 80px;
-    left: 125px;
-    width: 50px;
-    height: 50px;
-    background: radial-gradient(circle, #e2bb7a, #c49952);
-    border-radius: 50%;
-    z-index: 4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-family: cursive;
-    font-size: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    transition: opacity 0.3s;
-  }
+    @keyframes twinkle {
+      0% { opacity: 0.35; }
+      100% { opacity: 0.8; }
+    }
 
-  .envelope.open .seal {
-    opacity: 0; /* Hide seal when opening */
-  }
+    .top-controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 12px;
+    }
 
-  /* --- Main Content Section --- */
-  #main-content {
-    display: none; /* Hidden until envelope opens */
-    padding: 0;
-    text-align: center;
-  }
+    .ctrl-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(30, 3, 12, 0.75);
+      border: 1.5px solid var(--gold-primary);
+      color: var(--gold-primary);
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.6), 0 0 12px rgba(245, 208, 97, 0.3);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+    }
 
-  .hero-section {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* Replace this with a real image URL */
-    background-image: linear-gradient(rgba(253, 248, 245, 0.5), rgba(253, 248, 245, 0.9)), url('https://via.placeholder.com/800x1200?text=Couple+Image'); 
-    background-size: cover;
-    background-position: center;
-    padding: 20px;
-  }
+    .ctrl-btn:hover, .ctrl-btn:active {
+      transform: scale(1.12);
+      box-shadow: 0 0 22px rgba(245, 208, 97, 0.7);
+      background: rgba(72, 12, 32, 0.9);
+    }
 
-  .hero-section h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  .hero-section h2 {
-    font-size: 40px;
-    margin: 0;
-    font-family: 'Brush Script MT', cursive; /* Script font */
-  }
+    .pulse-glow {
+      animation: subtlePulse 2.2s infinite ease-in-out;
+    }
 
-  .scroll-indicator {
-    margin-top: 50px;
-    font-size: 14px;
-    animation: bounce 2s infinite;
-  }
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
 
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-10px);}
-    60% {transform: translateY(-5px);}
-  }
+    #welcome-curtain {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, #3a081e 0%, #1a020d 65%, #0a0106 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.9s ease;
+      padding: 24px;
+    }
 
-  /* --- Scratch Card Section --- */
-  .date-section {
-    padding: 50px 20px;
-    background-color: #fff;
-  }
+    .curtain-frame {
+      border: 2px solid var(--gold-primary);
+      outline: 1.5px dashed var(--gold-deep);
+      outline-offset: -8px;
+      border-radius: 200px 200px 28px 28px;
+      padding: 50px 30px 40px;
+      background: rgba(18, 2, 9, 0.75);
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 0 45px rgba(184, 134, 11, 0.2);
+      backdrop-filter: blur(14px);
+    }
 
-  .scratch-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-  }
+    .floral-emblem {
+      font-size: 2.8rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 14px;
+      display: inline-block;
+      filter: drop-shadow(0 2px 8px rgba(245, 208, 97, 0.5));
+    }
 
-  .scratch-card {
-    position: relative;
-    width: 80px;
-    height: 100px;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
+    .curtain-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.4rem;
+      color: #fff;
+      line-height: 1.1;
+      text-shadow: 0 0 25px rgba(245, 208, 97, 0.6);
+      margin-bottom: 10px;
+    }
 
-  .scratch-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #fdf8f5;
-    border: 1px solid #e8d0a9;
-    font-size: 18px;
-    font-weight: bold;
-    color: #5a4a42;
-  }
+    .curtain-couplenames {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      margin-bottom: 30px;
+    }
 
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    cursor: crosshair;
-  }
-</style>
+    .enter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 34px;
+      background: var(--gold-gradient);
+      border: none;
+      color: #21020a;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 6px 25px rgba(245, 208, 97, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 10px 32px rgba(245, 208, 97, 0.8);
+    }
+
+    .hero-stage {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px 20px 50px;
+      overflow: hidden;
+    }
+
+    .royal-moon {
+      position: absolute;
+      top: 10%;
+      width: 175px;
+      height: 175px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fae6ab 50%, #c49117 100%);
+      box-shadow: 0 0 60px rgba(252, 224, 139, 0.7), 0 0 140px rgba(223, 172, 54, 0.4);
+      z-index: 1;
+      animation: moonGlow 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes moonGlow {
+      0% { box-shadow: 0 0 50px rgba(252, 224, 139, 0.6), 0 0 100px rgba(223, 172, 54, 0.3); }
+      100% { box-shadow: 0 0 80px rgba(252, 224, 139, 0.85), 0 0 160px rgba(223, 172, 54, 0.5); }
+    }
+
+    .palace-silhouette {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 250px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" preserveAspectRatio="none"><path fill="%2313020b" d="M0,360 L1200,360 L1200,280 L1150,280 L1150,220 L1130,220 C1130,170 1160,140 1160,110 C1130,110 1115,160 1115,220 L1080,220 L1080,280 L990,280 L990,190 L950,190 L950,120 C950,75 980,50 980,25 C950,35 930,85 930,120 L890,120 L890,280 L790,280 L790,210 L750,210 L750,130 C750,80 785,45 785,15 C750,30 730,85 730,130 L690,130 L690,280 L620,280 L620,160 L580,160 L580,280 L510,280 L510,130 C510,85 490,30 455,15 C455,45 490,80 490,130 L450,130 L450,210 L410,210 L410,280 L310,280 L310,120 C310,85 290,35 260,25 C260,50 290,75 290,120 L250,120 L250,190 L210,190 L210,280 L120,280 L120,220 L85,220 C85,160 70,110 40,110 C40,140 70,170 70,220 L50,220 L50,280 L0,280 Z"/></svg>');
+      background-size: cover;
+      background-position: bottom;
+      z-index: 2;
+      opacity: 0.95;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      margin-top: 55px;
+      max-width: 720px;
+    }
+
+    .royal-badge {
+      display: inline-block;
+      padding: 6px 22px;
+      border: 1px solid var(--gold-primary);
+      border-radius: 30px;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      background: rgba(37, 2, 13, 0.5);
+      margin-bottom: 22px;
+      backdrop-filter: blur(6px);
+    }
+
+    .groom-name, .bride-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.1rem, 6vw, 3.4rem);
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(245, 208, 97, 0.65), 0 2px 6px rgba(0,0,0,0.9);
+      letter-spacing: 2px;
+      line-height: 1.15;
+    }
+
+    .names-connector {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(3.2rem, 7vw, 4.6rem);
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: -12px 0;
+      display: block;
+      filter: drop-shadow(0 2px 10px rgba(245, 208, 97, 0.4));
+    }
+
+    .hero-sub {
+      font-family: 'Marcellus', serif;
+      font-size: 0.95rem;
+      letter-spacing: 3px;
+      color: #e8d7c3;
+      margin-top: 20px;
+      text-transform: uppercase;
+    }
+
+    .content-section {
+      position: relative;
+      padding: 65px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 5;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      letter-spacing: 2.5px;
+      color: #e5cdb4;
+      text-transform: uppercase;
+      margin-bottom: 38px;
+    }
+
+    .scratch-deck {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .scratch-wrapper {
+      flex: 1 1 340px;
+      max-width: 420px;
+      background: rgba(33, 3, 13, 0.75);
+      border: 1.5px solid var(--gold-deep);
+      border-radius: 20px;
+      padding: 26px 20px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.7), inset 0 0 15px rgba(184, 134, 11, 0.15);
+      position: relative;
+    }
+
+    .card-header-tag {
+      display: inline-block;
+      background: var(--gold-gradient);
+      color: #1a0108;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+    .scratch-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      touch-action: none;
+    }
+
+    .hidden-details {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #fffdf8 0%, #fbead0 100%);
+      color: #2b0b18;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .revealed-tag {
+      font-size: 0.76rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: #8f173d;
+      margin-bottom: 4px;
+    }
+
+    .revealed-date {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #3b0617;
+      line-height: 1.2;
+    }
+
+    .revealed-day {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #781738;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .revealed-time {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #262626;
+      margin-top: 5px;
+    }
+
+    .scratch-canvas-item {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      cursor: crosshair;
+    }
+
+    .scratch-hint {
+      margin-top: 12px;
+      font-size: 0.78rem;
+      color: #deb973;
+      letter-spacing: 1px;
+    }
+
+    .countdown-section {
+      width: 100%;
+      max-width: 700px;
+      margin-top: 45px;
+      padding: 32px 20px;
+      border-radius: 22px;
+      background: rgba(30, 4, 14, 0.65);
+      border: 1px solid rgba(245, 208, 97, 0.4);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.55);
+    }
+
+    .countdown-title {
+      font-family: 'Marcellus', serif;
+      font-size: 1.05rem;
+      letter-spacing: 3px;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .timer-unit {
+      background: rgba(18, 2, 8, 0.8);
+      border: 1.5px solid rgba(245, 208, 97, 0.45);
+      padding: 18px 8px;
+      border-radius: 14px;
+      position: relative;
+      box-shadow: inset 0 0 12px rgba(0,0,0,0.65);
+    }
+
+    .timer-val {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 5vw, 2.3rem);
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+    }
+
+    .timer-tag {
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: #c7b19d;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .venue-card {
+      max-width: 600px;
+      width: 100%;
+      background: radial-gradient(ellipse at top, #36091b 0%, #17020a 100%);
+      border: 1.5px solid var(--gold-primary);
+      outline: 1px dashed var(--gold-deep);
+      outline-offset: -6px;
+      border-radius: 24px;
+      padding: 40px 26px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.8), 0 0 25px rgba(245, 208, 97, 0.15);
+      margin-bottom: 40px;
+    }
+
+    .venue-icon-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      color: #21020a;
+      font-size: 1.8rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 0 22px rgba(245, 208, 97, 0.5);
+    }
+
+    .venue-place-name {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.65rem;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .venue-address-txt {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #e2d2c5;
+      margin-bottom: 30px;
+    }
+
+    .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .venue-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-maps {
+      background: var(--gold-gradient);
+      color: #1e030c;
+      box-shadow: 0 4px 18px rgba(245, 208, 97, 0.45);
+    }
+
+    .btn-maps:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(245, 208, 97, 0.75);
+    }
+
+    .btn-cal {
+      background: transparent;
+      border: 1.5px solid var(--gold-primary);
+      color: var(--gold-primary);
+    }
+
+    .btn-cal:hover {
+      background: rgba(245, 208, 97, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .footer-blessing {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.7rem;
+      color: var(--gold-primary);
+      margin-bottom: 8px;
+    }
+
+    .footer-note {
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      color: #b39b89;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Ambient Night Sky Layers -->
+  <div class="sky-background"></div>
+  <div class="starlight-layer"></div>
 
-<!-- Envelope Animation Overlay -->
-<div id="envelope-container">
-  <div class="envelope" id="envelope">
-    <div class="flap"></div>
-    <div class="seal">N&C</div>
-  </div>
-</div>
+  <!-- Audio Element with Fallback Synthesizer Support -->
+  <audio id="wedding-audio" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-wedding-114002.mp3" type="audio/mp3">
+  </audio>
 
-<!-- Main Invitation Content -->
-<div id="main-content">
+  <!-- Top Floating Controls: Petals Shower & Music Toggle -->
+  <div class="top-controls">
+    <button class="ctrl-btn pulse-glow" id="btn-petals" title="Petal Shower" onclick="showerPetals()">
+      <i class="fa-solid fa-spa"></i>
+    </button>
+    <button class="ctrl-btn" id="btn-audio" title="Mute/Unmute Music" onclick="toggleAudio()">
+      <i class="fa-solid fa-volume-high" id="music-icon"></i>
+    </button>
+  </div>
 
-  <div class="hero-section">
-    <h1>Welcome to the Wedding Ceremony<br>of</h1>
-    <h2>Naveen G & Chitrashree M</h2>
-    <div class="scroll-indicator">
-      Scroll down<br>↓
-    </div>
-  </div>
+  <!-- 1. Tap to Begin Screen with Grand Curtain Opening -->
+  <div id="welcome-curtain" onclick="openInvitation()">
+    <div class="curtain-frame">
+      <div class="floral-emblem">
+        <i class="fa-solid fa-crown"></i>
+      </div>
+      <h1 class="curtain-title">Wedding Invitation</h1>
+      <p class="curtain-couplenames">Naveen &amp; Chitrashree</p>
+      <button class="enter-btn">
+        <i class="fa-solid fa-envelope-open-text"></i> Tap To Open
+      </button>
+    </div>
+  </div>
 
-  <div class="date-section">
-    <h2>03-12-2026</h2>
-    <p>✦ Scratch to reveal the date ✦</p>
+  <!-- 2. Palace Moon with Bride and Groom Names -->
+  <header class="hero-stage">
+    <div class="royal-moon"></div>
+    <div class="palace-silhouette"></div>
 
-    <div class="scratch-container">
-      <div class="scratch-card">
-        <div class="scratch-content"><span>03</span><span style="font-size:12px; font-weight:normal;">DAY</span></div>
-        <canvas id="canvas-day" width="80" height="100"></canvas>
-      </div>
-      <div class="scratch-card">
-        <div class="scratch-content"><span>December</span><span style="font-size:12px; font-weight:normal;">MONTH</span></div>
-        <canvas id="canvas-month" width="80" height="100"></canvas>
-      </div>
-      <div class="scratch-card">
-        <div class="scratch-content"><span>2026</span><span style="font-size:12px; font-weight:normal;">YEAR</span></div>
-        <canvas id="canvas-year" width="80" height="100"></canvas>
-      </div>
-    </div>
-  </div>
+    <div class="hero-content">
+      <div class="royal-badge">✦ Auspicious Wedding Ceremony ✦</div>
+      
+      <h1 class="groom-name">Naveen G</h1>
+      <span class="names-connector">&amp;</span>
+      <h1 class="bride-name">CHITRASHREE M</h1>
+      
+      <p class="hero-sub">Cordially invite your gracious presence with family &amp; friends</p>
+    </div>
+  </header>
 
-  <div style="height: 50vh; padding: 40px; background-color: #fdf8f5;">
-      <!-- Add remaining invitation details here (parents names, timeline, etc.) -->
-      <h2>You are invited...</h2>
-  </div>
+  <!-- 3 & 4. Dual Scratch Cards & Countdown Timer -->
+  <section class="content-section">
+    <h2 class="section-title">Auspicious Dates</h2>
+    <p class="section-subtitle">Scratch both cards below to reveal event schedules</p>
 
-</div>
+    <div class="scratch-deck">
+      
+      <!-- Scratch Card 1: Reception -->
+      <div class="scratch-wrapper">
+        <span class="card-header-tag">Celebration 01</span>
+        <div class="scratch-canvas-container" id="container-reception">
+          <div class="hidden-details">
+            <span class="revealed-tag">WEDDING RECEPTION</span>
+            <span class="revealed-date">02 • 12 • 2026</span>
+            <span class="revealed-day">Wednesday</span>
+            <span class="revealed-time"><i class="fa-regular fa-clock" style="color:#b8860b;"></i> 06:00 PM onwards</span>
+          </div>
+          <canvas class="scratch-canvas-item" id="canvas-reception"></canvas>
+        </div>
+        <p class="scratch-hint"><i class="fa-solid fa-wand-magic-sparkles"></i> Rub on gold foil to reveal</p>
+      </div>
 
-<script>
-  // --- 1. Logic to Open the Envelope ---
-  const envelope = document.getElementById('envelope');
-  const container = document.getElementById('envelope-container');
-  const mainContent = document.getElementById('main-content');
+      <!-- Scratch Card 2: Muhurtham -->
+      <div class="scratch-wrapper">
+        <span class="card-header-tag">Celebration 02</span>
+        <div class="scratch-canvas-container" id="container-muhurtham">
+          <div class="hidden-details">
+            <span class="revealed-tag">AUSPICIOUS MUHURTHAM</span>
+            <span class="revealed-date">03 • 12 • 2026</span>
+            <span class="revealed-day">Thursday</span>
+            <span class="revealed-time"><i class="fa-regular fa-clock" style="color:#b8860b;"></i> 08:00 AM onwards</span>
+          </div>
+          <canvas class="scratch-canvas-item" id="canvas-muhurtham"></canvas>
+        </div>
+        <p class="scratch-hint"><i class="fa-solid fa-wand-magic-sparkles"></i> Rub on gold foil to reveal</p>
+      </div>
 
-  envelope.addEventListener('click', () => {
-    // Add class to trigger CSS transform on the flap
-    envelope.classList.add('open');
+    </div>
 
-    // Wait for flap animation, then fade out the container
-    setTimeout(() => {
-      container.style.opacity = '0';
+    <!-- Countdown Timer -->
+    <div class="countdown-section">
+      <div class="countdown-title"><i class="fa-regular fa-hourglass-half" style="margin-right:8px;"></i> Countdown to The Wedding Celebrations</div>
+      <div class="timer-grid">
+        <div class="timer-unit">
+          <div class="timer-val" id="timer-days">00</div>
+          <div class="timer-tag">Days</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-val" id="timer-hours">00</div>
+          <div class="timer-tag">Hours</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-val" id="timer-mins">00</div>
+          <div class="timer-tag">Minutes</div>
+        </div>
+        <div class="timer-unit">
+          <div class="timer-val" id="timer-secs">00</div>
+          <div class="timer-tag">Seconds</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      // Wait for fade out, then hide container and show main content
-      setTimeout(() => {
-        container.style.display = 'none';
-        mainContent.style.display = 'block';
-      }, 1000); // 1 second fade duration
-    }, 800); // Wait 0.8s for flap to open
-  });
+  <!-- 5. Venue Details & Location Link -->
+  <section class="content-section" style="padding-top: 10px; padding-bottom: 80px;">
+    <div class="venue-card">
+      <div class="venue-icon-wrap">
+        <i class="fa-solid fa-map-pin"></i>
+      </div>
+      <h3 class="venue-place-name">The Wedding Venue</h3>
+      <p class="venue-address-txt">
+        <strong>SR AKSHATHA PALACE &amp; Convention Center</strong><br />
+        Gunjur<br />
+        Bengaluru, Karnataka, India
+      </p>
 
-  // --- 2. Logic for the Scratch-Off Cards ---
-  function setupScratchCard(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext('2d');
+      <div class="actions-row">
+        <!-- Direct Location Link -->
+        <a href="https://maps.app.goo.gl/djXwcnQAhJJP76ih8" target="_blank" rel="noopener noreferrer" class="venue-btn btn-maps">
+          <i class="fa-solid fa-location-arrow"></i> Open In Google Maps
+        </a>
+        
+        <!-- Google Calendar Reminder Link -->
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding+of+Naveen+and+Chitrashree&dates=20261202T123000Z/20261203T080000Z&details=Join+us+for+the+Reception+and+Muhurtham+of+Naveen+G+and+Chitrashree+M&location=Bengaluru,+Karnataka" target="_blank" rel="noopener noreferrer" class="venue-btn btn-cal">
+          <i class="fa-regular fa-calendar-plus"></i> Add To Calendar
+        </a>
+      </div>
+    </div>
 
-    // Fill the canvas with a solid "gold" color to act as the cover
-    ctx.fillStyle = '#d4af37'; 
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    <div>
+      <div class="footer-blessing">We eagerly look forward to seeing you</div>
+      <p class="footer-note">With best compliments from family &amp; friends</p>
+    </div>
+  </section>
 
-    // Optional: Add some text over the scratch layer
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '12px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Scratch', canvas.width/2, canvas.height/2 + 5);
+  <script>
+    // -------------------------------------------------------------
+    // Audio Controller & Synthetic Audio Fallback
+    // -------------------------------------------------------------
+    const weddingAudio = document.getElementById('wedding-audio');
+    const musicIcon = document.getElementById('music-icon');
+    let isSyntheticSoundActive = false;
+    let audioCtx = null;
+    let synthLoopId = null;
 
-    let isDrawing = false;
+    function playSyntheticChime() {
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
 
-    // Function to "erase" the colored layer
-    function scratch(e) {
-      if (!isDrawing) return;
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.16);
+          gain.gain.setValueAtTime(0.001, audioCtx.currentTime + idx * 0.16);
+          gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + idx * 0.16 + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + idx * 0.16 + 1.2);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(audioCtx.currentTime + idx * 0.16);
+          osc.stop(audioCtx.currentTime + idx * 0.16 + 1.3);
+        });
+      } catch (err) {
+        console.warn('Synthetic audio:', err);
+      }
+    }
 
-      // Prevent scrolling while scratching on mobile
-      e.preventDefault(); 
+    function triggerAudioStart() {
+      weddingAudio.volume = 0.65;
+      const playPromise = weddingAudio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          isSyntheticSoundActive = true;
+          playSyntheticChime();
+          synthLoopId = setInterval(playSyntheticChime, 6000);
+        });
+      }
+    }
 
-      const rect = canvas.getBoundingClientRect();
-      // Handle both mouse and touch events
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    function toggleAudio() {
+      // Check if audio element is currently playing or synthetic chime loop is active
+      const isPlaying = (!weddingAudio.paused) || (isSyntheticSoundActive && synthLoopId !== null);
 
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
+      if (isPlaying) {
+        // Stop everything
+        weddingAudio.pause();
+        if (synthLoopId) {
+          clearInterval(synthLoopId);
+          synthLoopId = null;
+        }
+        musicIcon.className = "fa-solid fa-volume-xmark";
+      } else {
+        // Start playing
+        if (isSyntheticSoundActive) {
+          playSyntheticChime();
+          synthLoopId = setInterval(playSyntheticChime, 6000);
+        } else {
+          weddingAudio.play().then(() => {
+            musicIcon.className = "fa-solid fa-volume-high";
+          }).catch(() => {
+            isSyntheticSoundActive = true;
+            playSyntheticChime();
+            synthLoopId = setInterval(playSyntheticChime, 6000);
+          });
+        }
+        musicIcon.className = "fa-solid fa-volume-high";
+      }
+    }
 
-      // This is the magic line that makes drawing act like an eraser
-      ctx.globalCompositeOperation = 'destination-out';
+    // -------------------------------------------------------------
+    // Tap-To-Begin Screen Opening Function
+    // -------------------------------------------------------------
+    function openInvitation() {
+      const curtain = document.getElementById('welcome-curtain');
+      curtain.style.opacity = '0';
+      curtain.style.transform = 'translateY(-100%) scale(1.05)';
+      setTimeout(() => {
+        curtain.style.display = 'none';
+      }, 1100);
 
-      ctx.beginPath();
-      ctx.arc(x, y, 15, 0, Math.PI * 2); // 15 is the brush size
-      ctx.fill();
-    }
+      triggerAudioStart();
+      showerPetals();
+    }
 
-    // Mouse Event Listeners
-    canvas.addEventListener('mousedown', () => isDrawing = true);
-    canvas.addEventListener('mouseup', () => isDrawing = false);
-    canvas.addEventListener('mousemove', scratch);
+    // -------------------------------------------------------------
+    // Petal Shower Confetti Effect
+    // -------------------------------------------------------------
+    function showerPetals() {
+      const petalColors = ['#f5d061', '#e84564', '#ff8499', '#ffaa00', '#d83a56'];
+      
+      confetti({
+        particleCount: 50,
+        spread: 75,
+        origin: { y: 0.1, x: 0.25 },
+        colors: petalColors,
+        scalar: 1.3,
+        drift: 0.4,
+        ticks: 240,
+        gravity: 0.6
+      });
 
-    // Touch Event Listeners (for mobile phones)
-    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
-    canvas.addEventListener('touchend', () => isDrawing = false);
-    canvas.addEventListener('touchmove', scratch, {passive: false});
-  }
+      confetti({
+        particleCount: 50,
+        spread: 75,
+        origin: { y: 0.1, x: 0.75 },
+        colors: petalColors,
+        scalar: 1.3,
+        drift: -0.4,
+        ticks: 240,
+        gravity: 0.6
+      });
+    }
 
-  // Initialize the three scratch cards
-  setupScratchCard('canvas-day');
-  setupScratchCard('canvas-month');
-  setupScratchCard('canvas-year');
-</script>
+    // -------------------------------------------------------------
+    // HTML5 Canvas Scratch Card Mechanics
+    // -------------------------------------------------------------
+    function initializeScratchCard(canvasId, titleText) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      
+      canvas.width = rect.width || 340;
+      canvas.height = rect.height || 170;
 
+      // Draw Gold Foil Gradient
+      const goldGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      goldGrad.addColorStop(0, '#f9e49a');
+      goldGrad.addColorStop(0.35, '#c59426');
+      goldGrad.addColorStop(0.7, '#fef0b7');
+      goldGrad.addColorStop(1, '#976e10');
+      
+      ctx.fillStyle = goldGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Decorative border frame
+      ctx.strokeStyle = '#6f4e04';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(8, 8, canvas.width - 16, canvas.height - 16);
+
+      ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+      ctx.strokeRect(12, 12, canvas.width - 24, canvas.height - 24);
+
+      // Centered etched gold invitation label
+      ctx.fillStyle = '#391f03';
+      ctx.font = 'bold 15px Montserrat, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(titleText, canvas.width / 2, canvas.height / 2);
+
+      let isDrawing = false;
+      let erasedPixels = 0;
+      let totalPixels = canvas.width * canvas.height;
+
+      function scratchAt(clientX, clientY) {
+        const bounds = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / bounds.width;
+        const scaleY = canvas.height / bounds.height;
+        const x = (clientX - bounds.left) * scaleX;
+        const y = (clientY - bounds.top) * scaleY;
+
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Reveal card automatically once ~42% is cleared
+        erasedPixels += Math.PI * 22 * 22 * 0.45;
+        if (erasedPixels > totalPixels * 0.42) {
+          canvas.style.transition = 'opacity 0.6s ease';
+          canvas.style.opacity = '0';
+          setTimeout(() => {
+            canvas.style.pointerEvents = 'none';
+          }, 600);
+        }
+      }
+
+      // Mouse scratch bindings
+      canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        scratchAt(e.clientX, e.clientY);
+      });
+      window.addEventListener('mouseup', () => isDrawing = false);
+      canvas.addEventListener('mousemove', (e) => {
+        if (isDrawing) scratchAt(e.clientX, e.clientY);
+      });
+
+      // Touch scratch bindings
+      canvas.addEventListener('touchstart', (e) => {
+        isDrawing = true;
+        if (e.touches && e.touches[0]) {
+          scratchAt(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', () => isDrawing = false);
+      canvas.addEventListener('touchmove', (e) => {
+        if (isDrawing && e.touches && e.touches[0]) {
+          scratchAt(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+    }
+
+    // Initialize both scratch surfaces on DOM ready
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeScratchCard('canvas-reception', '✨ Scratch for Reception ✨');
+      initializeScratchCard('canvas-muhurtham', '✨ Scratch for Muhurtham ✨');
+    });
+
+    // -------------------------------------------------------------
+    // Live Countdown Timer to Wedding Reception (02-Dec-2026 18:00 IST)
+    // -------------------------------------------------------------
+    const weddingTimestamp = new Date("2026-12-02T18:00:00+05:30").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = weddingTimestamp - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('timer-days').innerText = String(days).padStart(2, '0');
+        document.getElementById('timer-hours').innerText = String(hours).padStart(2, '0');
+        document.getElementById('timer-mins').innerText = String(mins).padStart(2, '0');
+        document.getElementById('timer-secs').innerText = String(secs).padStart(2, '0');
+      } else {
+        document.getElementById('timer-days').innerText = '00';
+        document.getElementById('timer-hours').innerText = '00';
+        document.getElementById('timer-mins').innerText = '00';
+        document.getElementById('timer-secs').innerText = '00';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
