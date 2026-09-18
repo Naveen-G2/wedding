@@ -34,7 +34,8 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    body {
+    html, body {
+      width: 100%;
       background-color: var(--midnight);
       color: var(--cream);
       font-family: 'Montserrat', sans-serif;
@@ -42,6 +43,7 @@
       position: relative;
       min-height: 100vh;
       user-select: none;
+      -webkit-user-select: none;
     }
 
     /* Background Ambient Sky & Twinkling Stars */
@@ -81,35 +83,33 @@
 
     .top-controls {
       position: fixed;
-      top: 20px;
-      right: 20px;
+      top: 15px;
+      right: 15px;
       z-index: 1000;
       display: flex;
-      gap: 12px;
+      gap: 10px;
     }
 
     .ctrl-btn {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: rgba(30, 3, 12, 0.75);
+      background: rgba(30, 3, 12, 0.85);
       border: 1.5px solid var(--gold-primary);
       color: var(--gold-primary);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.6), 0 0 12px rgba(245, 208, 97, 0.3);
-      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 10px rgba(245, 208, 97, 0.3);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    .ctrl-btn:hover, .ctrl-btn:active {
-      transform: scale(1.12);
-      box-shadow: 0 0 22px rgba(245, 208, 97, 0.7);
-      background: rgba(72, 12, 32, 0.9);
+    .ctrl-btn:active {
+      transform: scale(0.9);
     }
 
     .pulse-glow {
@@ -135,71 +135,68 @@
       text-align: center;
       cursor: pointer;
       transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.9s ease;
-      padding: 24px;
+      padding: 16px;
     }
 
     .curtain-frame {
       border: 2px solid var(--gold-primary);
       outline: 1.5px dashed var(--gold-deep);
-      outline-offset: -8px;
-      border-radius: 200px 200px 28px 28px;
-      padding: 50px 30px 40px;
-      background: rgba(18, 2, 9, 0.75);
-      max-width: 420px;
+      outline-offset: -6px;
+      border-radius: 160px 160px 24px 24px;
+      padding: 36px 20px 30px;
+      background: rgba(18, 2, 9, 0.85);
+      max-width: 360px;
       width: 100%;
       position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 0 45px rgba(184, 134, 11, 0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 35px rgba(184, 134, 11, 0.2);
       backdrop-filter: blur(14px);
     }
 
     .floral-emblem {
-      font-size: 2.8rem;
+      font-size: 2.4rem;
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       display: inline-block;
       filter: drop-shadow(0 2px 8px rgba(245, 208, 97, 0.5));
     }
 
     .curtain-title {
       font-family: 'Great Vibes', cursive;
-      font-size: 3.4rem;
+      font-size: clamp(2.8rem, 12vw, 3.4rem);
       color: #fff;
       line-height: 1.1;
-      text-shadow: 0 0 25px rgba(245, 208, 97, 0.6);
-      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(245, 208, 97, 0.6);
+      margin-bottom: 8px;
     }
 
     .curtain-couplenames {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.15rem;
-      letter-spacing: 2px;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
       color: var(--gold-light);
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
 
     .enter-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 34px;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
       background: var(--gold-gradient);
       border: none;
       color: #21020a;
       font-weight: 800;
-      font-size: 0.85rem;
-      letter-spacing: 2.5px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
       text-transform: uppercase;
       border-radius: 40px;
       cursor: pointer;
-      box-shadow: 0 6px 25px rgba(245, 208, 97, 0.5);
-      transition: all 0.3s ease;
-    }
-
-    .enter-btn:hover {
-      transform: translateY(-2px) scale(1.04);
-      box-shadow: 0 10px 32px rgba(245, 208, 97, 0.8);
+      box-shadow: 0 6px 20px rgba(245, 208, 97, 0.5);
+      width: 100%;
+      max-width: 240px;
     }
 
     .hero-stage {
@@ -210,25 +207,25 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 100px 20px 50px;
+      padding: 80px 16px 40px;
       overflow: hidden;
     }
 
     .royal-moon {
       position: absolute;
-      top: 10%;
-      width: 175px;
-      height: 175px;
+      top: 8%;
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fae6ab 50%, #c49117 100%);
-      box-shadow: 0 0 60px rgba(252, 224, 139, 0.7), 0 0 140px rgba(223, 172, 54, 0.4);
+      box-shadow: 0 0 50px rgba(252, 224, 139, 0.7), 0 0 120px rgba(223, 172, 54, 0.4);
       z-index: 1;
       animation: moonGlow 5s ease-in-out infinite alternate;
     }
 
     @keyframes moonGlow {
-      0% { box-shadow: 0 0 50px rgba(252, 224, 139, 0.6), 0 0 100px rgba(223, 172, 54, 0.3); }
-      100% { box-shadow: 0 0 80px rgba(252, 224, 139, 0.85), 0 0 160px rgba(223, 172, 54, 0.5); }
+      0% { box-shadow: 0 0 40px rgba(252, 224, 139, 0.6), 0 0 90px rgba(223, 172, 54, 0.3); }
+      100% { box-shadow: 0 0 70px rgba(252, 224, 139, 0.85), 0 0 140px rgba(223, 172, 54, 0.5); }
     }
 
     .palace-silhouette {
@@ -236,7 +233,7 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 250px;
+      height: 200px;
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" preserveAspectRatio="none"><path fill="%2313020b" d="M0,360 L1200,360 L1200,280 L1150,280 L1150,220 L1130,220 C1130,170 1160,140 1160,110 C1130,110 1115,160 1115,220 L1080,220 L1080,280 L990,280 L990,190 L950,190 L950,120 C950,75 980,50 980,25 C950,35 930,85 930,120 L890,120 L890,280 L790,280 L790,210 L750,210 L750,130 C750,80 785,45 785,15 C750,30 730,85 730,130 L690,130 L690,280 L620,280 L620,160 L580,160 L580,280 L510,280 L510,130 C510,85 490,30 455,15 C455,45 490,80 490,130 L450,130 L450,210 L410,210 L410,280 L310,280 L310,120 C310,85 290,35 260,25 C260,50 290,75 290,120 L250,120 L250,190 L210,190 L210,280 L120,280 L120,220 L85,220 C85,160 70,110 40,110 C40,140 70,170 70,220 L50,220 L50,280 L0,280 Z"/></svg>');
       background-size: cover;
       background-position: bottom;
@@ -247,98 +244,109 @@
     .hero-content {
       position: relative;
       z-index: 3;
-      margin-top: 55px;
-      max-width: 720px;
+      margin-top: 40px;
+      width: 100%;
+      max-width: 600px;
+      padding: 0 10px;
     }
 
     .royal-badge {
       display: inline-block;
-      padding: 6px 22px;
+      padding: 5px 18px;
       border: 1px solid var(--gold-primary);
       border-radius: 30px;
-      font-size: 0.75rem;
-      letter-spacing: 4px;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
       color: var(--gold-primary);
       text-transform: uppercase;
-      background: rgba(37, 2, 13, 0.5);
-      margin-bottom: 22px;
+      background: rgba(37, 2, 13, 0.6);
+      margin-bottom: 16px;
       backdrop-filter: blur(6px);
     }
 
     .groom-name, .bride-name {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(2.1rem, 6vw, 3.4rem);
+      font-size: clamp(1.8rem, 7.5vw, 3.2rem);
       font-weight: 900;
       color: #ffffff;
-      text-shadow: 0 0 25px rgba(245, 208, 97, 0.65), 0 2px 6px rgba(0,0,0,0.9);
-      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(245, 208, 97, 0.6), 0 2px 5px rgba(0,0,0,0.9);
+      letter-spacing: 1.5px;
       line-height: 1.15;
     }
 
     .names-connector {
       font-family: 'Great Vibes', cursive;
-      font-size: clamp(3.2rem, 7vw, 4.6rem);
+      font-size: clamp(2.8rem, 11vw, 4.2rem);
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin: -12px 0;
+      margin: -8px 0;
       display: block;
-      filter: drop-shadow(0 2px 10px rgba(245, 208, 97, 0.4));
+      filter: drop-shadow(0 2px 8px rgba(245, 208, 97, 0.4));
     }
 
     .hero-sub {
       font-family: 'Marcellus', serif;
-      font-size: 0.95rem;
-      letter-spacing: 3px;
+      font-size: clamp(0.8rem, 3.5vw, 0.92rem);
+      letter-spacing: 2px;
       color: #e8d7c3;
-      margin-top: 20px;
+      margin-top: 16px;
       text-transform: uppercase;
     }
 
     .content-section {
       position: relative;
-      padding: 65px 18px;
+      padding: 50px 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       z-index: 5;
+      width: 100%;
     }
 
     .section-title {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      font-size: clamp(1.4rem, 5vw, 2.1rem);
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .section-subtitle {
-      font-size: 0.8rem;
-      letter-spacing: 2.5px;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
       color: #e5cdb4;
       text-transform: uppercase;
-      margin-bottom: 38px;
+      margin-bottom: 28px;
     }
 
     .scratch-deck {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 32px;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
       width: 100%;
-      max-width: 960px;
+      max-width: 440px;
+    }
+
+    @media (min-width: 768px) {
+      .scratch-deck {
+        flex-direction: row;
+        max-width: 880px;
+        justify-content: center;
+      }
     }
 
     .scratch-wrapper {
-      flex: 1 1 340px;
-      max-width: 420px;
-      background: rgba(33, 3, 13, 0.75);
+      width: 100%;
+      max-width: 380px;
+      background: rgba(33, 3, 13, 0.8);
       border: 1.5px solid var(--gold-deep);
-      border-radius: 20px;
-      padding: 26px 20px;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.7), inset 0 0 15px rgba(184, 134, 11, 0.15);
+      border-radius: 18px;
+      padding: 22px 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7), inset 0 0 15px rgba(184, 134, 11, 0.15);
       position: relative;
     }
 
@@ -347,23 +355,23 @@
       background: var(--gold-gradient);
       color: #1a0108;
       font-weight: 800;
-      font-size: 0.75rem;
-      letter-spacing: 3px;
+      font-size: 0.7rem;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      padding: 6px 18px;
-      border-radius: 20px;
-      margin-bottom: 15px;
+      padding: 5px 14px;
+      border-radius: 16px;
+      margin-bottom: 12px;
     }
 
     .scratch-canvas-container {
       position: relative;
       width: 100%;
-      height: 170px;
-      border-radius: 14px;
+      height: 160px;
+      border-radius: 12px;
       overflow: hidden;
       border: 2px solid var(--gold-primary);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      touch-action: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+      touch-action: none; /* Prevents mobile scroll while scratching */
     }
 
     .hidden-details {
@@ -377,40 +385,40 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      padding: 8px;
     }
 
     .revealed-tag {
-      font-size: 0.76rem;
-      letter-spacing: 2px;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
       font-weight: 700;
       color: #8f173d;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .revealed-date {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, 6vw, 1.7rem);
       font-weight: 900;
       color: #3b0617;
       line-height: 1.2;
     }
 
     .revealed-day {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       color: #781738;
-      margin-top: 4px;
+      margin-top: 3px;
       text-transform: uppercase;
     }
 
     .revealed-time {
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       color: #262626;
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
     .scratch-canvas-item {
@@ -423,50 +431,55 @@
     }
 
     .scratch-hint {
-      margin-top: 12px;
-      font-size: 0.78rem;
+      margin-top: 10px;
+      font-size: 0.72rem;
       color: #deb973;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
     .countdown-section {
       width: 100%;
-      max-width: 700px;
-      margin-top: 45px;
-      padding: 32px 20px;
-      border-radius: 22px;
-      background: rgba(30, 4, 14, 0.65);
+      max-width: 600px;
+      margin-top: 40px;
+      padding: 24px 14px;
+      border-radius: 20px;
+      background: rgba(30, 4, 14, 0.75);
       border: 1px solid rgba(245, 208, 97, 0.4);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.55);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
     }
 
     .countdown-title {
       font-family: 'Marcellus', serif;
-      font-size: 1.05rem;
-      letter-spacing: 3px;
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      letter-spacing: 2px;
       color: var(--gold-primary);
       text-transform: uppercase;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
 
     .timer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      gap: 8px;
+    }
+
+    @media (min-width: 480px) {
+      .timer-grid {
+        gap: 12px;
+      }
     }
 
     .timer-unit {
-      background: rgba(18, 2, 8, 0.8);
+      background: rgba(18, 2, 8, 0.85);
       border: 1.5px solid rgba(245, 208, 97, 0.45);
-      padding: 18px 8px;
-      border-radius: 14px;
-      position: relative;
-      box-shadow: inset 0 0 12px rgba(0,0,0,0.65);
+      padding: 14px 4px;
+      border-radius: 12px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.65);
     }
 
     .timer-val {
       font-family: 'Cinzel Decorative', serif;
-      font-size: clamp(1.6rem, 5vw, 2.3rem);
+      font-size: clamp(1.3rem, 6vw, 2.1rem);
       font-weight: 700;
       background: var(--gold-gradient);
       -webkit-background-clip: text;
@@ -475,85 +488,95 @@
     }
 
     .timer-tag {
-      font-size: 0.68rem;
-      letter-spacing: 2px;
+      font-size: 0.6rem;
+      letter-spacing: 1.2px;
       color: #c7b19d;
       text-transform: uppercase;
-      margin-top: 6px;
+      margin-top: 5px;
     }
 
     .venue-card {
-      max-width: 600px;
+      max-width: 500px;
       width: 100%;
       background: radial-gradient(ellipse at top, #36091b 0%, #17020a 100%);
       border: 1.5px solid var(--gold-primary);
       outline: 1px dashed var(--gold-deep);
-      outline-offset: -6px;
-      border-radius: 24px;
-      padding: 40px 26px;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.8), 0 0 25px rgba(245, 208, 97, 0.15);
-      margin-bottom: 40px;
+      outline-offset: -5px;
+      border-radius: 20px;
+      padding: 32px 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.8), 0 0 20px rgba(245, 208, 97, 0.15);
+      margin-bottom: 30px;
     }
 
     .venue-icon-wrap {
-      width: 68px;
-      height: 68px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       background: var(--gold-gradient);
       color: #21020a;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 20px;
-      box-shadow: 0 0 22px rgba(245, 208, 97, 0.5);
+      margin-bottom: 16px;
+      box-shadow: 0 0 18px rgba(245, 208, 97, 0.5);
     }
 
     .venue-place-name {
       font-family: 'Cinzel Decorative', serif;
-      font-size: 1.65rem;
+      font-size: clamp(1.3rem, 5vw, 1.55rem);
       color: #ffffff;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .venue-address-txt {
-      font-size: 0.98rem;
-      line-height: 1.7;
+      font-size: clamp(0.9rem, 3.5vw, 0.95rem);
+      line-height: 1.6;
       color: #e2d2c5;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
 
     .actions-row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    @media (min-width: 480px) {
+      .actions-row {
+        flex-direction: row;
+        justify-content: center;
+      }
     }
 
     .venue-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
       border-radius: 30px;
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       cursor: pointer;
+      width: 100%;
+    }
+
+    @media (min-width: 480px) {
+      .venue-btn {
+        width: auto;
+      }
     }
 
     .btn-maps {
       background: var(--gold-gradient);
       color: #1e030c;
-      box-shadow: 0 4px 18px rgba(245, 208, 97, 0.45);
-    }
-
-    .btn-maps:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(245, 208, 97, 0.75);
+      box-shadow: 0 4px 15px rgba(245, 208, 97, 0.45);
     }
 
     .btn-cal {
@@ -562,21 +585,16 @@
       color: var(--gold-primary);
     }
 
-    .btn-cal:hover {
-      background: rgba(245, 208, 97, 0.15);
-      transform: translateY(-3px);
-    }
-
     .footer-blessing {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.7rem;
+      font-size: clamp(2.2rem, 9vw, 2.6rem);
       color: var(--gold-primary);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .footer-note {
-      font-size: 0.78rem;
-      letter-spacing: 2px;
+      font-size: 0.72rem;
+      letter-spacing: 1.5px;
       color: #b39b89;
       text-transform: uppercase;
     }
@@ -674,7 +692,7 @@
 
     <!-- Countdown Timer -->
     <div class="countdown-section">
-      <div class="countdown-title"><i class="fa-regular fa-hourglass-half" style="margin-right:8px;"></i> Countdown to The Wedding Celebrations</div>
+      <div class="countdown-title"><i class="fa-regular fa-hourglass-half" style="margin-right:6px;"></i> Countdown to The Celebrations</div>
       <div class="timer-grid">
         <div class="timer-unit">
           <div class="timer-val" id="timer-days">00</div>
@@ -686,18 +704,18 @@
         </div>
         <div class="timer-unit">
           <div class="timer-val" id="timer-mins">00</div>
-          <div class="timer-tag">Minutes</div>
+          <div class="timer-tag">Mins</div>
         </div>
         <div class="timer-unit">
           <div class="timer-val" id="timer-secs">00</div>
-          <div class="timer-tag">Seconds</div>
+          <div class="timer-tag">Secs</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- 5. Venue Details & Location Link -->
-  <section class="content-section" style="padding-top: 10px; padding-bottom: 80px;">
+  <section class="content-section" style="padding-top: 5px; padding-bottom: 70px;">
     <div class="venue-card">
       <div class="venue-icon-wrap">
         <i class="fa-solid fa-map-pin"></i>
@@ -712,7 +730,7 @@
       <div class="actions-row">
         <!-- Direct Location Link -->
         <a href="https://maps.app.goo.gl/djXwcnQAhJJP76ih8" target="_blank" rel="noopener noreferrer" class="venue-btn btn-maps">
-          <i class="fa-solid fa-location-arrow"></i> Open In Google Maps
+          <i class="fa-solid fa-location-arrow"></i> Google Maps
         </a>
         
         <!-- Google Calendar Reminder Link -->
@@ -779,11 +797,9 @@
     }
 
     function toggleAudio() {
-      // Check if audio element is currently playing or synthetic chime loop is active
       const isPlaying = (!weddingAudio.paused) || (isSyntheticSoundActive && synthLoopId !== null);
 
       if (isPlaying) {
-        // Stop everything
         weddingAudio.pause();
         if (synthLoopId) {
           clearInterval(synthLoopId);
@@ -791,7 +807,6 @@
         }
         musicIcon.className = "fa-solid fa-volume-xmark";
       } else {
-        // Start playing
         if (isSyntheticSoundActive) {
           playSyntheticChime();
           synthLoopId = setInterval(playSyntheticChime, 6000);
@@ -830,30 +845,30 @@
       const petalColors = ['#f5d061', '#e84564', '#ff8499', '#ffaa00', '#d83a56'];
       
       confetti({
-        particleCount: 50,
-        spread: 75,
+        particleCount: 40,
+        spread: 70,
         origin: { y: 0.1, x: 0.25 },
         colors: petalColors,
-        scalar: 1.3,
-        drift: 0.4,
-        ticks: 240,
+        scalar: 1.2,
+        drift: 0.3,
+        ticks: 200,
         gravity: 0.6
       });
 
       confetti({
-        particleCount: 50,
-        spread: 75,
+        particleCount: 40,
+        spread: 70,
         origin: { y: 0.1, x: 0.75 },
         colors: petalColors,
-        scalar: 1.3,
-        drift: -0.4,
-        ticks: 240,
+        scalar: 1.2,
+        drift: -0.3,
+        ticks: 200,
         gravity: 0.6
       });
     }
 
     // -------------------------------------------------------------
-    // HTML5 Canvas Scratch Card Mechanics
+    // HTML5 Canvas Scratch Card Mechanics (Mobile optimized)
     // -------------------------------------------------------------
     function initializeScratchCard(canvasId, titleText) {
       const canvas = document.getElementById(canvasId);
@@ -863,7 +878,7 @@
       const rect = canvas.getBoundingClientRect();
       
       canvas.width = rect.width || 340;
-      canvas.height = rect.height || 170;
+      canvas.height = rect.height || 160;
 
       // Draw Gold Foil Gradient
       const goldGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -885,7 +900,7 @@
 
       // Centered etched gold invitation label
       ctx.fillStyle = '#391f03';
-      ctx.font = 'bold 15px Montserrat, sans-serif';
+      ctx.font = 'bold 14px Montserrat, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(titleText, canvas.width / 2, canvas.height / 2);
@@ -903,12 +918,12 @@
 
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
-        ctx.arc(x, y, 22, 0, Math.PI * 2);
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
 
-        // Reveal card automatically once ~42% is cleared
-        erasedPixels += Math.PI * 22 * 22 * 0.45;
-        if (erasedPixels > totalPixels * 0.42) {
+        // Reveal card automatically once ~40% is cleared
+        erasedPixels += Math.PI * 20 * 20 * 0.45;
+        if (erasedPixels > totalPixels * 0.40) {
           canvas.style.transition = 'opacity 0.6s ease';
           canvas.style.opacity = '0';
           setTimeout(() => {
@@ -927,7 +942,7 @@
         if (isDrawing) scratchAt(e.clientX, e.clientY);
       });
 
-      // Touch scratch bindings
+      // Touch scratch bindings (Mobile optimized)
       canvas.addEventListener('touchstart', (e) => {
         isDrawing = true;
         if (e.touches && e.touches[0]) {
